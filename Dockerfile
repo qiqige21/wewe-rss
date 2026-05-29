@@ -12,6 +12,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV PRISMA_SCHEMA_PATH=/app/prisma/schema.prisma
 RUN npx prisma generate --schema=/app/prisma/schema.prisma
+RUN npx prisma db push --schema=/app/prisma/schema.prisma
 RUN corepack enable && corepack prepare pnpm@latest --activate
 RUN pnpm run build:web
 RUN pnpm run build:server
